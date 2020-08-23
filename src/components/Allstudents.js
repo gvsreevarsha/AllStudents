@@ -11,6 +11,7 @@ export default class AllStudents extends Component{
     constructor(props){
         super(props);
         this.onChangecategory = this.onChangecategory.bind(this);
+        this.onChangebranches = this.onChangebranches.bind(this);
         this.onChangebatch = this.onChangebatch.bind(this);
         this.onChangeejobs = this.onChangeejobs.bind(this);
         this.onChangegender = this.onChangegender.bind(this);
@@ -35,6 +36,7 @@ export default class AllStudents extends Component{
             twelve:'0',
             back:'1',
             backstate:'currently none',
+            branches:'All',
             students:[]
         }
     }
@@ -85,35 +87,40 @@ export default class AllStudents extends Component{
             twelve: e.target.value
         });
     }
+    onChangebranches(e) {
+        this.setState({
+                branches: e.target.value
+            });
+    }
     onChangeback(e) {
         this.setState({
             back: e.target.value
         });
-        if(e.target.value==-1)
+        if(e.target.value===-1)
             this.state.backstate='never';
-        else if(e.target.value==0)
+        else if(e.target.value===0)
             this.state.backstate='currently none';
-        else if(e.target.value==1)
+        else if(e.target.value===1)
             this.state.backstate='upto 1';
-        else if(e.target.value==2)
+        else if(e.target.value===2)
             this.state.backstate='upto 2';
-        else if(e.target.value==3)
+        else if(e.target.value===3)
             this.state.backstate='upto 3';
-        else if(e.target.value==4)
+        else if(e.target.value===4)
             this.state.backstate='upto 4';
-        else if(e.target.value==5)
+        else if(e.target.value===5)
             this.state.backstate='upto 5';
-        else if(e.target.value==6)
+        else if(e.target.value===6)
             this.state.backstate='upto 6';
-        else if(e.target.value==7)
+        else if(e.target.value===7)
             this.state.backstate='upto 7';
-        else if(e.target.value==8)
+        else if(e.target.value===8)
             this.state.backstate='upto 8';
-        else if(e.target.value==9)
+        else if(e.target.value===9)
             this.state.backstate='upto 9';
-        else if(e.target.value==10)
+        else if(e.target.value===10)
             this.state.backstate='upto 10';
-        else if(e.target.value==11)
+        else if(e.target.value===11)
             this.state.backstate='not applicable';
     }
     onSubmit(e) {
@@ -128,9 +135,10 @@ export default class AllStudents extends Component{
                 cgpa : this.state.cgpa,
                 tenth: this.state.tenth,
                 twelve: this.state.twelve,
-                back: this.state.back
+                back: this.state.back,
+                branches : this.state.branches
             };
-            console.log(obj.jobsinhand);
+            console.log(obj.branches);
             axios.post("http://localhost/GBGCGCV-2.0/admin/src/components/Allstudent-details.php",obj)
             .then((response)=>{
             console.log(response.data);
@@ -199,7 +207,14 @@ export default class AllStudents extends Component{
                                     </Row>
                                     <Row>
                                         <Col xs="12">
-                                            
+                                            <select name="branches" className="container p-2" onChange={this.onChangebranches} style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",borderColor:"#999999",color:"#999999"}} >
+                                                <option value="All">Select All</option>
+                                                <option value="CSE">Computer Science Engineering</option>
+                                                <option value="ECE">Electronics and Communication Engineering</option>
+                                                <option value="EEE">Electronics and Electrical Engineeringg</option>
+                                                <option value="Civil">Civil Engineering</option>
+                                                <option value="Mech">Mechanical Engineering</option>
+                                            </select>
                                         </Col>
                                     </Row>
                                 </Col>
