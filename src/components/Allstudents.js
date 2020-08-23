@@ -23,7 +23,6 @@ export default class AllStudents extends Component{
         this.onChangeback = this.onChangeback.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
-
         this.state = {
             category:'Any',
             batch:'nill',
@@ -34,10 +33,11 @@ export default class AllStudents extends Component{
             cgpa:'0',
             tenth:'0',
             twelve:'0',
-            back:'1',
+            back:1,
             backstate:'currently none',
             branches:'All',
-            students:[]
+            students:[],
+            studentno:0
         }
     }
 
@@ -96,31 +96,31 @@ export default class AllStudents extends Component{
         this.setState({
             back: e.target.value
         });
-        if(e.target.value===-1)
+        if(e.target.value==-1)
             this.state.backstate='never';
-        else if(e.target.value===0)
+        else if(e.target.value==0)
             this.state.backstate='currently none';
-        else if(e.target.value===1)
+        else if(e.target.value==1)
             this.state.backstate='upto 1';
-        else if(e.target.value===2)
+        else if(e.target.value==2)
             this.state.backstate='upto 2';
-        else if(e.target.value===3)
+        else if(e.target.value==3)
             this.state.backstate='upto 3';
-        else if(e.target.value===4)
+        else if(e.target.value==4)
             this.state.backstate='upto 4';
-        else if(e.target.value===5)
+        else if(e.target.value==5)
             this.state.backstate='upto 5';
-        else if(e.target.value===6)
+        else if(e.target.value==6)
             this.state.backstate='upto 6';
-        else if(e.target.value===7)
+        else if(e.target.value==7)
             this.state.backstate='upto 7';
-        else if(e.target.value===8)
+        else if(e.target.value==8)
             this.state.backstate='upto 8';
-        else if(e.target.value===9)
+        else if(e.target.value==9)
             this.state.backstate='upto 9';
-        else if(e.target.value===10)
+        else if(e.target.value==10)
             this.state.backstate='upto 10';
-        else if(e.target.value===11)
+        else if(e.target.value==11)
             this.state.backstate='not applicable';
     }
     onSubmit(e) {
@@ -136,12 +136,14 @@ export default class AllStudents extends Component{
                 tenth: this.state.tenth,
                 twelve: this.state.twelve,
                 back: this.state.back,
-                branches : this.state.branches
+                branches : this.state.branches,
+                studentno: 0
             };
-            console.log(obj.branches);
+            console.log(obj);
             axios.post("http://localhost/GBGCGCV-2.0/admin/src/components/Allstudent-details.php",obj)
             .then((response)=>{
             console.log(response.data);
+            this.state.studentno=response.data.length;
             this.setState({students: response.data})
             })
             .catch(err=>console.log(err));
@@ -176,7 +178,7 @@ export default class AllStudents extends Component{
                         <div>Search Filter</div>
                     </Col>
                     <Col xs="6" className="p-2" style={{backgroundColor:"#2A324B",color:"white"}}>
-                        <div align="right">Total Students:</div>
+                        <div align="right">Total Students:&nbsp;<b style={{fontWeight:"800"}}>{this.state.studentno}</b>&nbsp;</div>
                     </Col>
                 </Row>
                 <Row style={{backgroundColor:"white"}}>

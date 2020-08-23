@@ -16,7 +16,7 @@
     $cgpa=$request->cgpa;
     $tenth=$request->tenth;
     $twelve=$request->twelve;
-    $back=$request->back;
+    $backlogs=$request->back;
     $branches=$request->branches;
     if($category=="Any")
         $sql1="SELECT * from display_filtered_students";
@@ -55,35 +55,36 @@
     /*
     if($jobsinhand=="0")
         $sql5="SELECT * from display_filtered_students WHERE user_id NOT IN (SELECT display_filtered_students.user_id from display_filtered_students,cdt2020 WHERE cdt2020.PIU="Y" and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id)";
-    else   
-        $sql5="SELECT * from display_filtered_students,cdt2020 WHERE cdt2020.PIU='Y' and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id HAVING COUNT(display_filtered_students.user_id)<=".$jobsinhand;*/
+    */
     $sql6="SELECT * from display_filtered_students where b_tech_gpa>='$cgpa'";
     $sql7="SELECT * from display_filtered_students WHERE `SSC_percent`>='$ten'";
     $sql8="SELECT * from display_filtered_students WHERE `inter_percent`>='$twelve'";
-    if($backlogs=-1)
+    if($backlogs==-1)
         $sql9="SELECT * from display_filtered_students WHERE `pass_category`='A'";
+    else if($backlogs==0)
+        $sql9="SELECT * from display_filtered_students WHERE `b_tech_gpa`>0";
     else if($backlogs<11)
         $sql9="SELECT * from display_filtered_students WHERE `no_of_backlogs`<='$backlogs'";
     else
-        $sql9="SELECT * from display_filtered_students WHERE `no_of_backlogs`>11";
+        $sql9="SELECT * from display_filtered_students";
     if($branches=="All")
         $sql10="SELECT * from display_filtered_students";
     else
         $sql10="SELECT * from display_filtered_students where Branch LIKE '$branches%'";
     if($sortby=="user_id")
-        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql10." ORDER BY user_id";
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql9." INTERSECT ".$sql10." ORDER BY user_id";
     else if($sortby=="first_name")
-        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql10." ORDER BY first_name";
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql9." INTERSECT ".$sql10." ORDER BY first_name";
     else if($sortby=="Branch")
-        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql10." ORDER BY Branch";
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql9." INTERSECT ".$sql10." ORDER BY Branch";
     else if($sortby=="b_tech_gpa")
-        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql10." ORDER BY b_tech_gpa";
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql9." INTERSECT ".$sql10." ORDER BY b_tech_gpa";
     else if($sortby=="SSC_percent")
-        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql10." ORDER BY SSC_percent";
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql9." INTERSECT ".$sql10." ORDER BY SSC_percent";
     else if($sortby=="inter_percent")
-        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql10." ORDER BY inter_percent";
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql9." INTERSECT ".$sql10." ORDER BY inter_percent";
     else
-        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql10;
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." INTERSECT ".$sql9." INTERSECT ".$sql10;
     if($result = mysqli_query($con,$sql))
     {
         $cr=0;
