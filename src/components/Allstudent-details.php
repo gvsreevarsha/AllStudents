@@ -35,10 +35,24 @@
         $sql4="SELECT * from display_filtered_students where b_tech_gpa>0";
     else
         $sql4="SELECT * from display_filtered_students where b_tech_gpa=0";
-    if($jobsinhand=="nill")
+    if($jobsinhand=="-1")
         $sql5="SELECT * from display_filtered_students";
-    /*
     else if($jobsinhand=="0")
+        $sql5="SELECT display_filtered_students.user_id,display_filtered_students.first_name,display_filtered_students.middle_name,display_filtered_students.last_name,display_filtered_students.gender,display_filtered_students.YOP,display_filtered_students.Program,display_filtered_students.Branch,display_filtered_students.b_tech_gpa,display_filtered_students.SSC_percent,display_filtered_students.inter_percent,display_filtered_students.no_of_backlogs,display_filtered_students.pass_category from display_filtered_students,cdt2020 WHERE cdt2020.PIU='Y' and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id HAVING COUNT(display_filtered_students.user_id)<1";
+    else if($jobsinhand=="1")
+        $sql5="SELECT display_filtered_students.user_id,display_filtered_students.first_name,display_filtered_students.middle_name,display_filtered_students.last_name,display_filtered_students.gender,display_filtered_students.YOP,display_filtered_students.Program,display_filtered_students.Branch,display_filtered_students.b_tech_gpa,display_filtered_students.SSC_percent,display_filtered_students.inter_percent,display_filtered_students.no_of_backlogs,display_filtered_students.pass_category from display_filtered_students,cdt2020 WHERE cdt2020.PIU='Y' and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id HAVING COUNT(display_filtered_students.user_id)<=1";
+    else if($jobsinhand=="2")
+        $sql5="SELECT display_filtered_students.user_id,display_filtered_students.first_name,display_filtered_students.middle_name,display_filtered_students.last_name,display_filtered_students.gender,display_filtered_students.YOP,display_filtered_students.Program,display_filtered_students.Branch,display_filtered_students.b_tech_gpa,display_filtered_students.SSC_percent,display_filtered_students.inter_percent,display_filtered_students.no_of_backlogs,display_filtered_students.pass_category from display_filtered_students,cdt2020 WHERE cdt2020.PIU='Y' and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id HAVING COUNT(display_filtered_students.user_id)<=2";
+    else if($jobsinhand=="2")
+        $sql5="SELECT display_filtered_students.user_id,display_filtered_students.first_name,display_filtered_students.middle_name,display_filtered_students.last_name,display_filtered_students.gender,display_filtered_students.YOP,display_filtered_students.Program,display_filtered_students.Branch,display_filtered_students.b_tech_gpa,display_filtered_students.SSC_percent,display_filtered_students.inter_percent,display_filtered_students.no_of_backlogs,display_filtered_students.pass_category from display_filtered_students,cdt2020 WHERE cdt2020.PIU='Y' and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id HAVING COUNT(display_filtered_students.user_id)<=2";
+    else if($jobsinhand=="3")
+        $sql5="SELECT display_filtered_students.user_id,display_filtered_students.first_name,display_filtered_students.middle_name,display_filtered_students.last_name,display_filtered_students.gender,display_filtered_students.YOP,display_filtered_students.Program,display_filtered_students.Branch,display_filtered_students.b_tech_gpa,display_filtered_students.SSC_percent,display_filtered_students.inter_percent,display_filtered_students.no_of_backlogs,display_filtered_students.pass_category from display_filtered_students,cdt2020 WHERE cdt2020.PIU='Y' and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id HAVING COUNT(display_filtered_students.user_id)<=3";
+    else if($jobsinhand=="4")
+        $sql5="SELECT display_filtered_students.user_id,display_filtered_students.first_name,display_filtered_students.middle_name,display_filtered_students.last_name,display_filtered_students.gender,display_filtered_students.YOP,display_filtered_students.Program,display_filtered_students.Branch,display_filtered_students.b_tech_gpa,display_filtered_students.SSC_percent,display_filtered_students.inter_percent,display_filtered_students.no_of_backlogs,display_filtered_students.pass_category from display_filtered_students,cdt2020 WHERE cdt2020.PIU='Y' and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id HAVING COUNT(display_filtered_students.user_id)<=4";
+    else
+        $sql5="SELECT display_filtered_students.user_id,display_filtered_students.first_name,display_filtered_students.middle_name,display_filtered_students.last_name,display_filtered_students.gender,display_filtered_students.YOP,display_filtered_students.Program,display_filtered_students.Branch,display_filtered_students.b_tech_gpa,display_filtered_students.SSC_percent,display_filtered_students.inter_percent,display_filtered_students.no_of_backlogs,display_filtered_students.pass_category from display_filtered_students,cdt2020 WHERE cdt2020.PIU='Y' and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id HAVING COUNT(display_filtered_students.user_id)>4";
+    /*
+    if($jobsinhand=="0")
         $sql5="SELECT * from display_filtered_students WHERE user_id NOT IN (SELECT display_filtered_students.user_id from display_filtered_students,cdt2020 WHERE cdt2020.PIU="Y" and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id)";
     else   
         $sql5="SELECT * from display_filtered_students,cdt2020 WHERE cdt2020.PIU='Y' and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id HAVING COUNT(display_filtered_students.user_id)<=".$jobsinhand;*/
@@ -51,7 +65,20 @@
         $sql9="SELECT * from display_filtered_students WHERE `no_of_backlogs`<='$backlogs'";
     else
         $sql9="SELECT * from display_filtered_students WHERE `no_of_backlogs`>11";
-    $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8;
+    if($sortby=="user_id")
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." ORDER BY user_id";
+    else if($sortby=="first_name")
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." ORDER BY first_name";
+    else if($sortby=="Branch")
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." ORDER BY Branch";
+    else if($sortby=="b_tech_gpa")
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." ORDER BY b_tech_gpa";
+    else if($sortby=="SSC_percent")
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." ORDER BY SSC_percent";
+    else if($sortby=="inter_percent")
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8." ORDER BY inter_percent";
+    else
+        $sql=$sql1." INTERSECT ".$sql2." INTERSECT ".$sql3." INTERSECT ".$sql4." INTERSECT ".$sql5." INTERSECT ".$sql6." INTERSECT ".$sql7." INTERSECT ".$sql8;
     if($result = mysqli_query($con,$sql))
     {
         $cr=0;
@@ -66,7 +93,6 @@
             $students[$cr]['intermarks']=$row['inter_percent'];
             $students[$cr]['btechgpa']=$row['b_tech_gpa'];
             $students[$cr]['batch']=$row['YOP'];
-
             $cr++;
         }
         echo json_encode($students);

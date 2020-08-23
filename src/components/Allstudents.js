@@ -28,7 +28,7 @@ export default class AllStudents extends Component{
             batch:'nill',
             jobeligible:'yes',
             gender:'nill',
-            jobsinhand:'nill',
+            jobsinhand:'-1',
             sortby:'user_id',
             cgpa:'0',
             tenth:'0',
@@ -130,7 +130,7 @@ export default class AllStudents extends Component{
                 twelve: this.state.twelve,
                 back: this.state.back
             };
-            console.log(obj);
+            console.log(obj.jobsinhand);
             axios.post("http://localhost/GBGCGCV-2.0/admin/src/components/Allstudent-details.php",obj)
             .then((response)=>{
             console.log(response.data);
@@ -174,7 +174,7 @@ export default class AllStudents extends Component{
                 <Row style={{backgroundColor:"white"}}>
                     <Col>
                         <form onSubmit={this.onSubmit}>
-                            <Row class="p-2" style={{marginTop:5,fontSize:"14px",fontFamily: "Segoe UI",fontWeight:"600"}} align="left">
+                            <Row className="p-2" style={{marginTop:5,fontSize:"14px",fontFamily: "Segoe UI",fontWeight:"600"}} align="left">
                                 <Col style={{fontSize:15}}>Education Filter</Col>
                             </Row>
                             <hr style={{margin:2,marginBottom:4}}></hr>
@@ -239,8 +239,11 @@ export default class AllStudents extends Component{
                                     <Col lg="4" md="10"  xs="12">
                                         <select name="sortby" className="runningtext container p-2" onChange={this.onChangesortby}  style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",borderColor:"#999999",color:"#999999"}}>
                                             <option value="user_id">Roll No</option>
-                                            <option value="first_name" >Name</option>
-                                            <option value="Branch" >Branch</option>
+                                            <option value="first_name">Name</option>
+                                            <option value="Branch">Branch</option>
+                                            <option value="b_tech_gpa" >Institute Marks</option>
+                                            <option value="SSC_percent" >10th Marks</option>
+                                            <option value="inter_percent" >12th Marks</option>
                                         </select>
                                     </Col>
                                 </Row>
@@ -271,12 +274,13 @@ export default class AllStudents extends Component{
                                     </Col>
                                     <Col lg="4" md="10" xs="12">
                                         <select name="jobsinhand" className="runningtext container p-2" onChange={this.onChangejobs}  style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",borderColor:"#999999",color:"#999999"}}>
-                                            <option value="nill">No Preference</option>
+                                            <option value="-1">No Preference</option>
                                             <option value="0">0 jobs</option>
                                             <option value="1">less than or equal to 1 job</option>
                                             <option value="2">less than or equal to 2 jobs</option>
                                             <option value="3">less than or equal to 3 jobs</option>
                                             <option value="4">less than or equal to 4 jobs</option>
+                                            <option value="5">greater than 4 jobs</option>
                                         </select>
                                     </Col>
                                     <Col>
