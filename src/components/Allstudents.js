@@ -30,11 +30,12 @@ export default class AllStudents extends Component{
             gender:'nill',
             jobsinhand:'nill',
             sortby:'user_id',
-            students:[],
-            cgpa:'10',
-            tenth:'50',
-            twelve:'50',
-            back:'11'
+            cgpa:'0',
+            tenth:'0',
+            twelve:'0',
+            back:'1',
+            backstate:'currently none',
+            students:[]
         }
     }
 
@@ -88,6 +89,32 @@ export default class AllStudents extends Component{
         this.setState({
             back: e.target.value
         });
+        if(e.target.value==-1)
+            this.state.backstate='never';
+        else if(e.target.value==0)
+            this.state.backstate='currently none';
+        else if(e.target.value==1)
+            this.state.backstate='upto 1';
+        else if(e.target.value==2)
+            this.state.backstate='upto 2';
+        else if(e.target.value==3)
+            this.state.backstate='upto 3';
+        else if(e.target.value==4)
+            this.state.backstate='upto 4';
+        else if(e.target.value==5)
+            this.state.backstate='upto 5';
+        else if(e.target.value==6)
+            this.state.backstate='upto 6';
+        else if(e.target.value==7)
+            this.state.backstate='upto 7';
+        else if(e.target.value==8)
+            this.state.backstate='upto 8';
+        else if(e.target.value==9)
+            this.state.backstate='upto 9';
+        else if(e.target.value==10)
+            this.state.backstate='upto 10';
+        else if(e.target.value==11)
+            this.state.backstate='not applicable';
     }
     onSubmit(e) {
             e.preventDefault();//Value will be submitted through react js
@@ -129,36 +156,36 @@ export default class AllStudents extends Component{
     }
     render(){   
         return(
-            <div className="AllStudents">
-            <Container fluid>
+            <div className="AllStudents" style={{backgroundColor:'#C7CCDB'}}>
+            <Container>
                 <Row>
-                    <Col className="Heading">
+                    <Col className="Heading" align="left" style={{fontSize:"20px",fontFamily: "Segoe UI",fontWeight:"600"}}>
                     Manage Students
                     </Col>
                 </Row>
-                <Row style={{backgroundColor:"blue",color:"white"}}>
-                    <Col xs="6" className="p-2">
+                <Row>
+                    <Col xs="6" className="p-2" align="left" style={{backgroundColor:"#2A324B",color:"white"}}>
                         <div>Search Filter</div>
                     </Col>
-                    <Col xs="6" className="p-2">
+                    <Col xs="6" className="p-2" style={{backgroundColor:"#2A324B",color:"white"}}>
                         <div align="right">Total Students:</div>
                     </Col>
                 </Row>
                 <Row style={{backgroundColor:"white"}}>
                     <Col>
                         <form onSubmit={this.onSubmit}>
-                            <Row className="p-2" style={{marginTop:5}}>
+                            <Row class="p-2" style={{marginTop:5,fontSize:"14px",fontFamily: "Segoe UI",fontWeight:"600"}} align="left">
                                 <Col style={{fontSize:15}}>Education Filter</Col>
                             </Row>
-                            <hr style={{margin:2}}></hr>
-                            <Row>   
-                                <Col lg="4" md="6" xs="12">
+                            <hr style={{margin:2,marginBottom:4}}></hr>
+                            <Row className="p-2" style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",color:"#999999"}}>   
+                                <Col lg="4" md="6" xs="12" align="left">
                                     <Row>
                                         <Col>Degree</Col>
                                     </Row>
                                     <Row>
                                         <Col>
-                                          <select name="category" id="selectcolor" onChange={this.onChangecategory}>
+                                          <select name="category" id="selectcategory" className="container p-2" onChange={this.onChangecategory} style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",borderColor:"#999999",color:"#999999"}}>
                                             <option value="Any">Any</option>
                                             <option value="B.Tech">BTech</option>
                                             <option value="MBA">MBA</option>
@@ -166,7 +193,7 @@ export default class AllStudents extends Component{
                                         </Col>
                                     </Row>
                                 </Col>
-                                <Col lg="4" md="6" xs="12">
+                                <Col lg="4" md="6" xs="12" align="left">
                                     <Row>
                                         <Col xs="12">Branch</Col>
                                     </Row>
@@ -176,27 +203,27 @@ export default class AllStudents extends Component{
                                         </Col>
                                     </Row>
                                 </Col>
-                                <Col lg="4" md="6" xs="12">
+                                <Col lg="4" md="6" xs="12" align="left">
                                     <Row>
-                                        <Col className="container">CGPA(<span id="CGPA">0</span>-10)</Col>
+                                        <Col className="container">CGPA(<span id="CGPA">{this.state.cgpa}</span>-10)</Col>
                                     </Row>
                                     <Row>
                                         <Col>
-                                           <input type="range" name="mincgpa" id="mincgpa" min="0" max="10" step="0.5" className="w-100" onChange={this.onChangecgpa}/>
+                                           <input type="range" defaultValue="0" name="mincgpa" id="mincgpa" min="0" max="10" step="0.5" className="w-100" onChange={this.onChangecgpa}/>
                                         </Col>
                                     </Row>
                                 </Col>
                             </Row>
-                            <Row className="p-2" style={{marginTop:5}}>
+                            <Row className="p-2" style={{marginTop:5,fontSize:"14px",fontFamily: "Segoe UI",fontWeight:"600"}} align="left">
                                 <Col style={{fontSize:15}}>Other Filter</Col>
                             </Row>
                             <hr style={{margin:2,marginBottom:4}}></hr>
-                            <Row>
-                                <Col lg="2" md="4" xs="12">
+                            <Row style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",color:"#999999"}}>
+                                <Col lg="2" md="2" xs="12" className="p-2 pl-4" align="left">
                                     Batch
                                 </Col>
-                                <Col lg="4" md="8" xs="12">
-                                    <select name="batch" className="runningtext container" onChange={this.onChangebatch}>
+                                <Col lg="4" md="10" xs="12" >
+                                    <select name="batch" className="runningtext container p-2" onChange={this.onChangebatch}  style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",borderColor:"#999999",color:"#999999"}}>
                                       <option value="nill">No Preference</option>
                                       <option value="2016" >2016</option>
                                       <option value="2017" >2017</option>
@@ -206,49 +233,44 @@ export default class AllStudents extends Component{
                                       <option value="2021"  >2021</option>
                                     </select> 
                                 </Col>
-                                    <Col lg="2" md="4" xs="12">
+                                    <Col lg="2" md="2" xs="12" className="p-2 pl-4" align="left">
                                         Sort By
                                     </Col>
-                                    <Col lg="4" md="8"  xs="12">
-                                        <select className="runningtext container" name="sortby" onChange={this.onChangesortby}>
-                                            <option value="first_name">Name</option>
-                                            <option value="Branch">Branch</option>
+                                    <Col lg="4" md="10"  xs="12">
+                                        <select name="sortby" className="runningtext container p-2" onChange={this.onChangesortby}  style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",borderColor:"#999999",color:"#999999"}}>
                                             <option value="user_id">Roll No</option>
-                                            <option value="b_tech_gpa">Institute marks</option>
-                                            <option value="SSC_percent">10th Marks</option>
-                                            <option value="inter_percent">12th Marks</option>
+                                            <option value="first_name" >Name</option>
+                                            <option value="Branch" >Branch</option>
                                         </select>
                                     </Col>
                                 </Row>
-                                <br></br>
-                                <Row>
-                                    <Col lg="2" md="4" xs="12">
+                                <Row style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",color:"#999999"}}>
+                                    <Col lg="2" md="2" xs="12" className="p-2 pl-4" align="left">
                                         Gender
                                     </Col>
-                                    <Col lg="4" md="8" xs="12">
-                                        <select className="runningtext container" name="gender" onChange={this.onChangegender}>
+                                    <Col lg="4" md="10" xs="12">
+                                        <select className="runningtext container p-2" name="gender" onChange={this.onChangegender}  style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",borderColor:"#999999",color:"#999999"}}>
                                             <option value="nill">No Preference</option>
                                             <option value="M" >Male</option>
                                             <option value="F" >Female</option>
                                         </select>
                                     </Col>
-                                    <Col lg="2" md="4" xs="12">
+                                    <Col lg="2" md="2" xs="12" className="p-2 pl-4" align="left">
                                         Eligible For Job
                                     </Col>
-                                    <Col lg="4" md="8" xs="12">
-                                        <select className="runningtext container" name="jobeligible" onChange={this.onChangeejobs}>
+                                    <Col lg="4" md="10" xs="12">
+                                        <select className="runningtext container p-2" name="jobeligible" onChange={this.onChangeejobs} style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",borderColor:"#999999",color:"#999999"}}>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
                                         </select>
                                     </Col>
                                 </Row>
-                                <br></br>
-                                <Row>
-                                    <Col lg="2" md="4" xs="12">
+                                <Row style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",color:"#999999"}}>
+                                    <Col lg="2" md="2" xs="12" className="p-2 pl-4" align="left">
                                         Jobs In Hand
                                     </Col>
-                                    <Col lg="4" md="8" xs="12">
-                                        <select name="jobsinhand" className="runningtext container" onChange={this.onChangejobs}>
+                                    <Col lg="4" md="10" xs="12">
+                                        <select name="jobsinhand" className="runningtext container p-2" onChange={this.onChangejobs}  style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",borderColor:"#999999",color:"#999999"}}>
                                             <option value="nill">No Preference</option>
                                             <option value="0">0 jobs</option>
                                             <option value="1">less than or equal to 1 job</option>
@@ -262,49 +284,48 @@ export default class AllStudents extends Component{
                                     <Col>
                                     </Col>
                             </Row>
-                            <Row className="p-2" style={{marginTop:5}}>
-                                <Col style={{fontSize:15}}>Other Filter</Col>
+                            <Row className="p-2" style={{marginTop:5,fontSize:"14px",fontFamily: "Segoe UI",fontWeight:"600"}} align="left">
+                                <Col style={{fontSize:15}}>Advance Filter</Col>
                             </Row>
                             <hr style={{margin:2,marginBottom:4}}></hr>
-                            <Row>
-                                <Col lg="1" md="6" xs="12" className="p-2 pl-4">
-                                    10th
+                            <Row style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",color:"#999999"}}>
+                                <Col lg="1" md="2" xs="12" className="p-2">
+                                    10th<br/>({this.state.tenth}-100)
                                 </Col>
-                                <Col lg="5" md="6" xs="12">
-                                <input type="range" name="minten" id="minten" min="0" max="100" step="5" className="w-100" onChange={this.onChangetenth}/>
+                                <Col lg="5" md="10" xs="12" className="p-2">
+                                    <input type="range" defaultValue="0" name="minten" id="minten" min="0" max="100" step="5" className="w-100" onChange={this.onChangetenth}/>
                                 </Col>
-                                <Col lg="1" md="6" xs="12" className="p-2 pl-4">
-                                    12th
+                                <Col lg="1" md="2" xs="12" className="p-2">
+                                    12th<br/>({this.state.twelve}-100)
                                 </Col>
-                                <Col lg="5" md="6" xs="12">
-                                    <input type="range" name="mintwelve" id="mintwelve" min="0" max="100" step="5" className="w-100" onChange={this.onChangetwelve}/>
+                                <Col lg="5" md="10" xs="12" className="p-2">
+                                    <input type="range" defaultValue="0" name="mintwelve" id="mintwelve" min="0" max="100" step="5" className="w-100" onChange={this.onChangetwelve}/>
                                 </Col>
                             </Row>
-                            <br></br>
-                            <Row>
-                                <Col lg="1" md="6" xs="12" className="p-2 pl-4">
-                                    Backlogs
+                            <Row style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",color:"#999999"}}>
+                                <Col lg="1" md="2" xs="12" className="p-2">
+                                    Backlogs<br/>({this.state.backstate})
                                 </Col>
-                                <Col lg="5" md="6" xs="12">
-                                    <input type="range" name="backlogs" id="backlogs" min="-1" max="11" step="1" className="w-100" onChange={this.onChangeback}/>
+                                <Col lg="5" md="10" xs="12" className="p-2">
+                                    <input type="range" name="backlogs" defaultValue="0" id="backlogs" min="-1" max="11" step="1" className="w-100" onChange={this.onChangeback}/>
                                 </Col>  
                                 <Col></Col>
                                 <Col></Col>
                             </Row>
                             <div className={"form-group"}>
-                                <input type={"submit"} value={"Submit"} className={"btn btn-primary"}/>
+                                <input type={"submit"} value={"Submit"} className={"btn btn-primary"} style={{backgroundColor:"#2A324B",color:"white",borderColor:"#2A324B"}}/>
                             </div>
                         </form> 
                     </Col>
                 </Row>
-            </Container>
-            <Table responsive striped>
-                    <thead>
+                <Row>
+            <Table responsive striped style={{backgroundColor:'white'}}>
+                    <thead style={{backgroundColor:'#2A324B',color:'white'}}>
                         <tr>
                             <th>ID</th>
-                            <th>First_Name</th>
-                            <th>Middle_Name</th>
-                            <th>Last_Name</th>
+                            <th align="left">First_Name</th>
+                            <th align="left">Middle_Name</th>
+                            <th align="left">Last_Name</th>
                             <th>Branch</th>
                             <th>X Marks</th>
                             <th>XII Marks</th>
@@ -316,6 +337,8 @@ export default class AllStudents extends Component{
                         {this.StudentsList()}
                     </tbody>
                 </Table>
+                </Row>
+                </Container>
         </div>
         );
     }

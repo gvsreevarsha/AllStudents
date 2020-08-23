@@ -35,10 +35,11 @@
         $sql4="SELECT * from display_filtered_students where b_tech_gpa>0";
     else
         $sql4="SELECT * from display_filtered_students where b_tech_gpa=0";
-    /*if($jobsinhand=="nill")
+    if($jobsinhand=="nill")
         $sql5="SELECT * from display_filtered_students";
-    if($jobsinhand=="0")
-        $sql5="SELECT * from display_filtered_students,cdt2020 WHERE cdt2020.PIU='Y' and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id HAVING COUNT(display_filtered_students.user_id)=0";
+    /*
+    else if($jobsinhand=="0")
+        $sql5="SELECT * from display_filtered_students WHERE user_id NOT IN (SELECT display_filtered_students.user_id from display_filtered_students,cdt2020 WHERE cdt2020.PIU="Y" and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id)";
     else   
         $sql5="SELECT * from display_filtered_students,cdt2020 WHERE cdt2020.PIU='Y' and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id HAVING COUNT(display_filtered_students.user_id)<=".$jobsinhand;*/
     $sql6="SELECT * from display_filtered_students where b_tech_gpa>'$cgpa'";
