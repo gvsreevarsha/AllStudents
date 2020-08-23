@@ -31,7 +31,9 @@
     else
         $sql3="SELECT * from display_filtered_students where gender='$gender'";
 
-    if($jobeligible=="yes")
+    if($jobeligible=="nill")
+        $sql4="SELECT * from display_filtered_students";
+    else if($jobeligible=="yes")
         $sql4="SELECT * from display_filtered_students where b_tech_gpa>0";
     else
         $sql4="SELECT * from display_filtered_students where b_tech_gpa=0";
@@ -56,7 +58,7 @@
         $sql5="SELECT * from display_filtered_students WHERE user_id NOT IN (SELECT display_filtered_students.user_id from display_filtered_students,cdt2020 WHERE cdt2020.PIU="Y" and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id)";
     else   
         $sql5="SELECT * from display_filtered_students,cdt2020 WHERE cdt2020.PIU='Y' and display_filtered_students.user_id=cdt2020.userid group by display_filtered_students.user_id HAVING COUNT(display_filtered_students.user_id)<=".$jobsinhand;*/
-    $sql6="SELECT * from display_filtered_students where b_tech_gpa>'$cgpa'";
+    $sql6="SELECT * from display_filtered_students where b_tech_gpa>='$cgpa'";
     $sql7="SELECT * from display_filtered_students WHERE `SSC_percent`>='$ten'";
     $sql8="SELECT * from display_filtered_students WHERE `inter_percent`>='$twelve'";
     if($backlogs=-1)

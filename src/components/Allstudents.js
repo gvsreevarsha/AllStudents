@@ -26,7 +26,7 @@ export default class AllStudents extends Component{
         this.state = {
             category:'Any',
             batch:'nill',
-            jobeligible:'yes',
+            jobeligible:'nill',
             gender:'nill',
             jobsinhand:'-1',
             sortby:'user_id',
@@ -263,6 +263,7 @@ export default class AllStudents extends Component{
                                     </Col>
                                     <Col lg="4" md="10" xs="12">
                                         <select className="runningtext container p-2" name="jobeligible" onChange={this.onChangeejobs} style={{fontSize:"12px",fontFamily: "Segoe UI",fontWeight:"400",borderColor:"#999999",color:"#999999"}}>
+                                            <option value="nill">No Preference</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>
                                         </select>
